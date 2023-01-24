@@ -1,26 +1,34 @@
-from transformers import pipeline
+import PIL
+import requests
 import torch
+from diffusers import StableDiffusionInstructPix2PixPipeline, EulerAncestralDiscreteScheduler
+
 
 # Init is ran on server startup
-# Load your model to GPU as a global variable here using the variable name "model"
+# Load  model to GPU as a global variable under pipeline
 def init():
-    global model
+    global pipeline
     
     device = 0 if torch.cuda.is_available() else -1
-    model = pipeline('fill-mask', model='bert-base-uncased', device=device)
+    model_id = "timbrooks/instruct-pix2pix"
+    pipeline = StableDiffusionInstructPix2PixPipeline.from_pretrained(model_id, torch_dtype=torch.float16, safety_checker=None)
+    pipeline.to("cuda")
+    pipeline.scheduler = EulerAncestralDiscreteScheduler.from_config(pipeline.scheduler.config)
+
 
 # Inference is ran for every server call
-# Reference your preloaded global model variable here.
+# Reference  preloaded global pipeline here. 
 def inference(model_inputs:dict) -> dict:
-    global model
-
-    # Parse out your arguments
+    global pipeline
+    # Parse pipeline arguments
     prompt = model_inputs.get('prompt', None)
+    image = model_inputs.get('image', None)
+
     if prompt == None:
         return {'message': "No prompt provided"}
     
     # Run the model
-    result = model(prompt)
+    result = pipeline(prompt, image=image, num_inference_steps=10, image_guidance_scale=1).images
 
     # Return the results as a dictionary
-    return result
+    return result[0]

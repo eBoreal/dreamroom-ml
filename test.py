@@ -2,9 +2,18 @@
 # Run it with `python3 test.py``
 
 import requests
+import base64
+  
+  
 
-model_inputs = {'prompt': 'Hello I am a [MASK] model.'}
+  
+# convert img to base64
+with open("scratch.jpg", "rb") as image2string:
+    img = base64.b64encode(image2string.read())
 
-res = requests.post('http://localhost:8000/', json = model_inputs)
+model_inputs = {'prompt': 'Make the background red',
+                'image': str(img)}
+
+res = requests.post('http://localhost:8000', json = model_inputs)
 
 print(res.json())
