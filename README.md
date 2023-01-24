@@ -3,10 +3,11 @@
 
 Ready to deploy inference endpoint for pix2pix. 
 
-This repo uses Tim Brooks et al. Instruct Pix2pix model. 
-The code is adapted from Banana serverless template. 
+# Disclaimer
 
-# Quickstart
+This repo uses Tim Brooks et al. Instruct Pix2pix model - https://www.timothybrooks.com/instruct-pix2pix
+
+The code is adapted from Banana serverless template.
 
 <br>
 
