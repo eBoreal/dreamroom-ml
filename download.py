@@ -1,7 +1,4 @@
-# In this file, we define download_model
-# It runs during container build time to get model weights built into the container
-
-# In this example: A Huggingface BERT model
+# Runs during container build time to get model weights built into the container
 
 import torch
 from diffusers import StableDiffusionInstructPix2PixPipeline
