@@ -1,6 +1,10 @@
 import PIL
 import requests
 import torch
+from PIL import Image
+from io import BytesIO
+import base64
+
 from diffusers import StableDiffusionInstructPix2PixPipeline, EulerAncestralDiscreteScheduler
 
 
@@ -22,7 +26,8 @@ def inference(model_inputs:dict) -> dict:
     global pipeline
     # Parse pipeline arguments
     prompt = model_inputs.get('prompt', None)
-    image = model_inputs.get('image', None)
+    image_base_64 = model_inputs.get('image', None)
+    image = Image.open(BytesIO(base64.b64decode(image_base_64))).convert("RGB")
 
     if prompt == None:
         return {'message': "No prompt provided"}
