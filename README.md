@@ -1,5 +1,5 @@
 
-# 🍌 DreamRoom Serverless
+# 🍌 Serverless pix2pix
 
 Ready to deploy inference endpoint for pix2pix. 
 
