@@ -1,7 +1,7 @@
 import torch
 from diffusers import StableDiffusionInstructPix2PixPipeline,EulerAncestralDiscreteScheduler
 
-from utils.img_helpers import string_to_pil, pil_to_string
+from utils import string_to_pil, pil_to_string
 
 # Init is ran on server startup
 # Load  model to GPU as a global variable under pipeline

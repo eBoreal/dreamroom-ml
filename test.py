@@ -4,12 +4,10 @@
 import requests
 import base64
 import requests
-from PIL import Image
-from io import BytesIO
 import base64
 
   
-from utils.img_helpers import string_to_pil, pil_to_string
+# from utils import string_to_pil, pil_to_string
 
 
   

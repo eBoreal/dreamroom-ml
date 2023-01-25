@@ -21,6 +21,7 @@ RUN python3 download.py
 
 # Add the app code, init() and inference()
 ADD app.py .
+ADD utils.py .
 
 EXPOSE 8000
 
