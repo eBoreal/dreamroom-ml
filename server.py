@@ -12,7 +12,7 @@ import app as user_src
 user_src.init()
 
 # Create the http server app
-server = Sanic("my_app")
+server = Sanic("DreamRoom")
 
 # Healthchecks verify that the environment is correct on Banana Serverless
 @server.route('/healthcheck', methods=["GET"])
