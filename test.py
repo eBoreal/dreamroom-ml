@@ -30,6 +30,7 @@ res = requests.post('http://localhost:8000', json = model_inputs,
 
 output = res.json()
 
-img = string_to_pil(output['image'])
-img.save("result.jpeg")
+print("responded with: ", output["status"])
+# img = string_to_pil(output['image'])
+# img.save("result.jpeg")
 

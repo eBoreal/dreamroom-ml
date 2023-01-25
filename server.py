@@ -29,13 +29,16 @@ def healthcheck(request):
 @server.route('/', methods=["POST"]) 
 def inference(request):
     try:
-        model_inputs = response.json.loads(request.json)
-    except:
-        model_inputs = request.json
+        try:
+            model_inputs = response.json.loads(request.json)
+        except:
+            model_inputs = request.json
 
-    output = user_src.inference(model_inputs)
+        output = user_src.inference(model_inputs)
 
-    return response.json(output)
+        return response.json(output, status=200)
+    except Exception as e:
+        response.json({'message': e}, status=500)
 
 
 if __name__ == '__main__':
