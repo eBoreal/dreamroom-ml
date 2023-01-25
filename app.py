@@ -36,7 +36,7 @@ def inference(model_inputs:dict) -> dict:
     result = pipeline(prompt, image=image, num_inference_steps=10, image_guidance_scale=1).images
 
     # Return the results as a dictionary
-    return result[0]
+    return {'image': base64.b64encode(result[0])}
 
 
 def fake_inference(model_inputs:dict) -> dict:
@@ -47,4 +47,6 @@ def fake_inference(model_inputs:dict) -> dict:
 
     image = Image.open(BytesIO(base64.b64decode(image_base_64)))
 
-    return image
+    res = {'image': base64.b64encode(image)}
+
+    return res
