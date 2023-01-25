@@ -5,9 +5,6 @@
 
 from sanic import Sanic, response
 import subprocess
-from PIL import Image
-from io import BytesIO
-import base64
 import app as user_src
 
 # We do the model load-to-GPU step on server startup
