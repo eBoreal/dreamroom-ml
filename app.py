@@ -37,3 +37,14 @@ def inference(model_inputs:dict) -> dict:
 
     # Return the results as a dictionary
     return result[0]
+
+
+def fake_inference(model_inputs:dict) -> dict:
+    
+    prompt = model_inputs.get('prompt', None)
+    image_base_64 = model_inputs.get('image', None)
+    print(image_base_64)
+
+    image = Image.open(BytesIO(base64.b64decode(image_base_64)))
+
+    return image

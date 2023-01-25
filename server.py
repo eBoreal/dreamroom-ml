@@ -36,6 +36,18 @@ def inference(request):
     output = user_src.inference(model_inputs)
 
     return response.json(output)
+
+
+@server.route('/test', methods=["POST"]) 
+def inference(request):
+    try:
+        model_inputs = response.json.loads(request.json)
+    except:
+        model_inputs = request.json
+
+    output = user_src.fake_inference(model_inputs)
+
+    return response.json(output)
     
 
 if __name__ == '__main__':
