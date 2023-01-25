@@ -45,8 +45,9 @@ def fake_inference(model_inputs:dict) -> dict:
     image_base_64 = model_inputs.get('image', None)
     print(image_base_64)
 
-    image = Image.open(BytesIO(base64.b64decode(image_base_64)))
-
+    decoded_string = BytesIO(base64.b64decode(image_base_64))
+    image = Image.open(decoded_string)
+    
     res = {'image': base64.b64encode(image)}
 
     return res
