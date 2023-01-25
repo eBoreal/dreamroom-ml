@@ -32,15 +32,3 @@ def inference(model_inputs:dict) -> dict:
 
     # Return the results as a dictionary
     return {'image': pil_to_string(result[0])}
-
-# def mock_inference(model_inputs:dict) -> dict:
-#     # Parse pipeline arguments
-#     prompt = model_inputs.get('prompt', None)
-#     base64_string = model_inputs.get('image')
-#     image = string_to_pil(base64_string)
-
-#     if prompt == None:
-#         return {'message': "No prompt provided"}
-
-#     return {'image': pil_to_string(image)}
-

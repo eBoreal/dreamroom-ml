@@ -9,6 +9,8 @@ from io import BytesIO
 import base64
 
   
+from utils.img_helpers import string_to_pil, pil_to_string
+
 
   
 # convert img to base64
@@ -26,4 +28,8 @@ res = requests.post('http://localhost:8000', json = model_inputs,
 
 #     files = {'image': img}
 
-print(res.json())
+output = res.json()
+
+img = string_to_pil(output.image)
+img.save("result.jpeg")
+
