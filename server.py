@@ -43,6 +43,3 @@ def inference(request):
 
 if __name__ == '__main__':
     server.run(host='0.0.0.0', port=8000, workers=1)
-    # , debug=True, 
-    # reload_dir="/home/john_of_arc/dev-linux/dreamroom/serverless-ml",
-    # access_log=True)

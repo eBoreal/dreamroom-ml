@@ -16,7 +16,7 @@ def init():
 
 
 # Inference is ran for every server call
-# Reference  preloaded global pipeline here. 
+# Reference preloaded global pipeline here. 
 def inference(model_inputs:dict) -> dict:
     global pipeline
     # Parse pipeline arguments
