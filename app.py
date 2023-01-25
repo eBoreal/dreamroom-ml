@@ -1,12 +1,7 @@
-import PIL
-import requests
-import torch
-from PIL import Image
-from io import BytesIO
-import base64
+# import torch
+# from diffusers import StableDiffusionInstructPix2PixPipeline,EulerAncestralDiscreteScheduler
 
-from diffusers import StableDiffusionInstructPix2PixPipeline, EulerAncestralDiscreteScheduler
-
+from utils.img_helpers import string_to_pil, pil_to_string
 
 # Init is ran on server startup
 # Load  model to GPU as a global variable under pipeline
@@ -26,8 +21,8 @@ def inference(model_inputs:dict) -> dict:
     global pipeline
     # Parse pipeline arguments
     prompt = model_inputs.get('prompt', None)
-    image_base_64 = model_inputs.get('image', None)
-    image = Image.open(BytesIO(base64.b64decode(image_base_64))).convert("RGB")
+    base64_string = model_inputs.get('image')
+    image = string_to_pil(base64_string)
 
     if prompt == None:
         return {'message': "No prompt provided"}
@@ -36,18 +31,16 @@ def inference(model_inputs:dict) -> dict:
     result = pipeline(prompt, image=image, num_inference_steps=10, image_guidance_scale=1).images
 
     # Return the results as a dictionary
-    return {'image': base64.b64encode(result[0])}
+    return {'image': pil_to_string(result[0])}
 
+# def mock_inference(model_inputs:dict) -> dict:
+#     # Parse pipeline arguments
+#     prompt = model_inputs.get('prompt', None)
+#     base64_string = model_inputs.get('image')
+#     image = string_to_pil(base64_string)
 
-def fake_inference(model_inputs:dict) -> dict:
-    
-    prompt = model_inputs.get('prompt', None)
-    image_base_64 = model_inputs.get('image', None)
-    print(image_base_64)
+#     if prompt == None:
+#         return {'message': "No prompt provided"}
 
-    decoded_string = BytesIO(base64.b64decode(image_base_64))
-    image = Image.open(decoded_string)
-    
-    res = {'image': base64.b64encode(image)}
+#     return {'image': pil_to_string(image)}
 
-    return res

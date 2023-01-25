@@ -5,6 +5,9 @@
 
 from sanic import Sanic, response
 import subprocess
+from PIL import Image
+from io import BytesIO
+import base64
 import app as user_src
 
 # We do the model load-to-GPU step on server startup
@@ -38,17 +41,21 @@ def inference(request):
     return response.json(output)
 
 
-@server.route('/test', methods=["POST"]) 
-def inference(request):
-    try:
-        model_inputs = response.json.loads(request.json)
-    except:
-        model_inputs = request.json
+# @server.route('/test', methods=["POST"]) 
+# def inference(request):
+#     try:
+#         model_inputs = response.json.loads(request.json)
+#     except:
+#         model_inputs = request.json
 
-    output = user_src.fake_inference(model_inputs)
+#     output = user_src.mock_inference(model_inputs)
 
-    return response.json(output)
+#     return response.json(output)
     
 
+
+
 if __name__ == '__main__':
-    server.run(host='0.0.0.0', port=8000, workers=1)
+    server.run(host='0.0.0.0', port=8000, workers=1, debug=True, 
+    reload_dir="/home/john_of_arc/dev-linux/dreamroom/serverless-ml",
+    access_log=True)
