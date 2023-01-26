@@ -38,7 +38,9 @@ def inference(request):
 
         return response.json(output, status=200)
     except Exception as e:
-        response.json({'message': e}, status=500)
+        return response.json({'message': e}, status=500)
+
+    
 
 
 if __name__ == '__main__':
