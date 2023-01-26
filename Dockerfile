@@ -23,6 +23,9 @@ RUN python3 download.py
 ADD app.py .
 ADD utils.py .
 
+# memory management
+ENV PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
+
 EXPOSE 8000
 
 CMD python3 -u server.py
