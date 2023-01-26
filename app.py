@@ -21,6 +21,12 @@ def inference(model_inputs:dict) -> dict:
     global model
     # Parse pipeline arguments
     prompt = model_inputs.get('prompt', None)
+    num_inference_steps = model_inputs.get('num_inference_steps', 10)
+    image_guidance_scale=model_inputs.get('image_guidance_scale', 2.5)
+    guidance_scale=model_inputs.get('prompt_guidance_scale', 7)
+    num_images_per_prompt=model_inputs.get('num_images_per_prompt', 1)
+
+    # decode image
     base64_string = model_inputs.get('image')
     image = string_to_pil(base64_string)
 
@@ -28,7 +34,15 @@ def inference(model_inputs:dict) -> dict:
         return {'message': "No prompt provided"}
     
     # Run the model
-    result = model(prompt, image=image, num_inference_steps=10, image_guidance_scale=1).images
+    result = model(prompt, image=image, 
+        num_inference_steps=num_inference_steps, 
+        image_guidance_scale=image_guidance_scale, 
+        guidance_scale=guidance_scale,
+        num_images_per_prompt=num_images_per_prompt).images
 
     # Return the results as a dictionary
-    return {'image': pil_to_string(result[0])}
+    out = {}
+    for i, img in enumerate(result):
+        out[f"image-{i}"]=pil_to_string(img)
+    
+    return out
