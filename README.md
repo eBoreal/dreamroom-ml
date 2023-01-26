@@ -5,7 +5,7 @@ Ready to deploy inference endpoint for pix2pix.
 
 # Disclaimer
 
-This repo uses Tim Brooks et al. Instruct Pix2pix model - https://www.timothybrooks.com/instruct-pix2pix
+This repo uses the HuggingFace diffusers' implementation of Tim Brooks et al. Instruct Pix2pix model - https://www.timothybrooks.com/instruct-pix2pix
 
 The code is adapted from Banana serverless template.
 
