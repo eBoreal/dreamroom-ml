@@ -32,7 +32,7 @@ def inference(model_inputs:dict) -> dict:
 
     if prompt == None:
         return {'message': "No prompt provided"}
-    
+
     # Run the model
     result = model(prompt, image=image, 
         num_inference_steps=num_inference_steps, 
@@ -44,5 +44,9 @@ def inference(model_inputs:dict) -> dict:
     out = {}
     for i, img in enumerate(result):
         out[f"image-{i}"]=pil_to_string(img)
+
+    
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
     
     return out
