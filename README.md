@@ -13,7 +13,7 @@ The code is adapted from Banana serverless template.
 
 Original input image             |  "Turn her/him into a cyborg" output
 :-------------------------:|:-------------------------:
-![](https://github.com/eBoreal/serverless-pix2pix/data/input/venus-of-milo-512.jpg)  |  ![](https://github.com/eBoreal/serverless-pix2pix/data/output/venus-of-milo-512.jpeg) |  ![](https://github.com/eBoreal/serverless-pix2pix/data/input/elon-512.jpg) |  ![](https://github.com/eBoreal/serverless-pix2pix/data/output/elon-2-512.jpeg)
+![](https://github.com/eBoreal/serverless-pix2pix/blob/main/data/input/venus-of-milo-512.jpg)  |  ![](https://github.com/eBoreal/serverless-pix2pix/blob/main/data/output/venus-of-milo-512.jpeg) |  ![](https://github.com/eBoreal/serverless-pix2pix/blob/main/data/input/elon-512.jpg) |  ![](https://github.com/eBoreal/serverless-pix2pix/blob/main/data/output/elon-2-512.jpeg)
 
 <br>
 
