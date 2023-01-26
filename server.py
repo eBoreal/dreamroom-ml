@@ -38,7 +38,8 @@ def inference(request):
 
         return response.json(output, status=200)
     except Exception as e:
-        return response.json({'message': e}, status=500)
+        return response.json({'description': e.description, 
+        'message': e.message}, status=500)
 
     
 
