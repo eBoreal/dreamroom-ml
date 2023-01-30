@@ -1,7 +1,7 @@
 import torch
 from diffusers import StableDiffusionInstructPix2PixPipeline,EulerAncestralDiscreteScheduler
 
-from utils import string_to_pil, pil_to_string
+from utils import dataUrlToPil, pilToDataUrl
 
 # Init is ran on server startup
 # Load  model to GPU as a global variable under pipeline
@@ -28,7 +28,7 @@ def inference(model_inputs:dict) -> dict:
 
     # decode image
     base64_string = model_inputs.get('image')
-    image = string_to_pil(base64_string)
+    image = dataUrlToPil(base64_string)
 
     if prompt == None:
         return {'message': "No prompt provided"}
@@ -43,7 +43,9 @@ def inference(model_inputs:dict) -> dict:
     # Return the results as a dictionary
     out = {}
     for i, img in enumerate(result):
-        out[f"image-{i}"]=pil_to_string(img)
+        out[f"image-{i}"]= {
+            "imageUrl": pilToDataUrl(img)
+        }
 
     
     if torch.cuda.is_available():
