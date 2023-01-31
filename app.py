@@ -49,6 +49,8 @@ def generate(
         }
 
     print("Launching model with image: ", type(input_image))
+    print("prompt: ", instruction)
+
     generator = torch.manual_seed(seed)
     edited_image = model(
         instruction, image=input_image,
