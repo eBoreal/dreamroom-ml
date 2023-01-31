@@ -9,3 +9,4 @@ sanic
 requests
 Pillow==9.4.0
 python-math
+traceback2

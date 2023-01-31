@@ -35,12 +35,12 @@ def generate(
     text_cfg_scale = round(random.uniform(6.0, 9.0), ndigits=2) if randomize_cfg else text_cfg_scale
     image_cfg_scale = round(random.uniform(1.2, 1.8), ndigits=2) if randomize_cfg else image_cfg_scale
 
-    width, height = input_image.size
-    factor = 512 / max(width, height)
-    factor = math.ceil(min(width, height) * factor / 64) * 64 / min(width, height)
-    width = int((width * factor) // 64) * 64
-    height = int((height * factor) // 64) * 64
-    input_image = ImageOps.fit(input_image, (width, height), method=Image.Resampling.LANCZOS)
+    # width, height = input_image.size
+    # factor = 512 / max(width, height)
+    # factor = math.ceil(min(width, height) * factor / 64) * 64 / min(width, height)
+    # width = int((width * factor) // 64) * 64
+    # height = int((height * factor) // 64) * 64
+    # input_image = ImageOps.fit(input_image, (width, height), method=Image.Resampling.LANCZOS)
 
     if instruction == "":
         return {
