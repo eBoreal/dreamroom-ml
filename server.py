@@ -2,6 +2,8 @@
 # This file is boilerplate for the http server, and follows a strict interface.
 
 # Instead, edit the init() and inference() functions in app.py
+import traceback
+import sys
 
 from sanic import Sanic, response
 import subprocess
@@ -38,7 +40,9 @@ def inference(request):
 
         return response.json(output, status=200)
     except Exception as e:
-        return response.json({'error': e}, status=500)
+        exc_info = sys.exc_info()
+        print(''.join(traceback.format_exception(*exc_info)))
+        return response.json({'error': "e"},  status=500)
 
     
 
