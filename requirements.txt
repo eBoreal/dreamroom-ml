@@ -4,6 +4,7 @@ torchvision
 numpy
 transformers
 git+https://github.com/huggingface/diffusers
+accelerate
 sanic
 requests
 Pillow==9.4.0
