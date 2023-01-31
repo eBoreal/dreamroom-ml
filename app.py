@@ -14,8 +14,8 @@ def init():
     
     device = 0 if torch.cuda.is_available() else -1
     model_id = "timbrooks/instruct-pix2pix"
-    model = StableDiffusionInstructPix2PixPipeline.from_pretrained(
-        model_id, torch_dtype=torch.float16, safety_checker=None).to("cuda")
+    model = StableDiffusionInstructPix2PixPipeline.from_pretrained(model_id, torch_dtype=torch.float16, safety_checker=None)
+    model.to("cuda")
     model.scheduler = EulerAncestralDiscreteScheduler.from_config(model.scheduler.config)
 
 # from https://huggingface.co/spaces/timbrooks/instruct-pix2pix/blob/main/edit_app.py
@@ -45,11 +45,12 @@ def generate(
     if instruction == "":
         return [input_image, seed]
 
+    print("Launching model with image: ", type(input_image))
     generator = torch.manual_seed(seed)
     edited_image = model(
         instruction, image=input_image,
         guidance_scale=text_cfg_scale, image_guidance_scale=image_cfg_scale,
-        num_inference_steps=steps, generator=generator,
+        num_inference_steps=steps, generator=generator
     ).images[0]
     return {
         'seed': seed, 
@@ -64,7 +65,7 @@ def inference(model_inputs:dict) -> dict:
     global model
     # Parse pipeline arguments
     instruction = model_inputs.get('prompt', None)
-    steps = model_inputs.get('num_inference_steps', 10)
+    steps = min(model_inputs.get('num_inference_steps', 10), 50)
     image_cfg_scale=model_inputs.get('image_guidance_scale', 2.5)
     text_cfg_scale=model_inputs.get('prompt_guidance_scale', 7)
     randomize_cfg=model_inputs.get('randomize_cfg', True)
@@ -95,5 +96,7 @@ def inference(model_inputs:dict) -> dict:
     # Return the results as a dictionary
     edited_img_string = pilToDataUrl(result['image'])
     result['image'] = edited_img_string
+
+    print("Replying to server with image: ", result['image'][:50])
     
     return result
