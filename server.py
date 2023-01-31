@@ -7,6 +7,9 @@ from sanic import Sanic, response
 import subprocess
 import app as user_src
 
+import traceback
+import sys
+
 # We do the model load-to-GPU step on server startup
 # so the model object is available globally for reuse
 user_src.init()
@@ -38,8 +41,9 @@ def inference(request):
 
         return response.json(output, status=200)
     except Exception as e:
-        return response.json({'description': e.description, 
-        'message': e.message}, status=500)
+        exc_info = sys.exc_info()
+        err=''.join(traceback.format_exception(*exc_info))
+        return response.json({'message': err}, status=500)
 
     
 

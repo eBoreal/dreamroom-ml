@@ -2,6 +2,8 @@
 sanic
 requests
 Pillow==9.4.0
+traceback2
+python-math
 
 # pix2pix
 torch
