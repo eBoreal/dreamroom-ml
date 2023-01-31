@@ -1,13 +1,10 @@
-# app
-sanic
-requests
-Pillow==9.4.0
-python-math
-
-# pix2pix
 -f --extra-index-url https://download.pytorch.org/whl/cu116
 torch
 torchvision
 numpy
 transformers
 git+https://github.com/huggingface/diffusers
+sanic
+requests
+Pillow==9.4.0
+python-math
