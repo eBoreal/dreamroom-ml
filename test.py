@@ -7,7 +7,6 @@ import requests
 import base64
 
   
-from utils import string_to_pil
 
 
 # params
@@ -23,6 +22,7 @@ test_name = f"venus-of-milo-{num_inference_steps}-{image_guidance_scale}-{prompt
 # convert img to base64
 with open(test_img_path, "rb") as image2string:
     base64_bytes  = base64.b64encode(image2string.read())
+    # imageString = imageStringToPil
 
 # pass it as string for json
 base64_string = base64_bytes.decode('utf-8')
