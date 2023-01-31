@@ -48,7 +48,7 @@ def generate(
             'image': input_image 
         }
 
-    print("Launching model with image: ", type(input_image), print(input_image.shape))
+    print("Launching model with image: ", type(input_image), input_image.size)
     print("prompt: ", instruction)
     print(seed)
     print(text_cfg_scale)
