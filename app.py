@@ -43,7 +43,10 @@ def generate(
     input_image = ImageOps.fit(input_image, (width, height), method=Image.Resampling.LANCZOS)
 
     if instruction == "":
-        return [input_image, seed]
+        return {
+           'seed': seed, 
+            'image': input_image 
+        }
 
     print("Launching model with image: ", type(input_image))
     generator = torch.manual_seed(seed)
@@ -62,7 +65,6 @@ def generate(
 # Inference is ran for every server call
 # Reference preloaded global pipeline here. 
 def inference(model_inputs:dict) -> dict:
-    global model
     # Parse pipeline arguments
     instruction = model_inputs.get('prompt', None)
     steps = min(model_inputs.get('num_inference_steps', 10), 50)
