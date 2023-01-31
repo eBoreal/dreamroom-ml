@@ -5,7 +5,7 @@ import base64
 def imageStringToPil(img_string):
     isBase64 = img_string.split(",")
 
-    if (isBase64.length == 1):
+    if (len(isBase64) == 1):
         base64string = img_string
     else:
         base64string = isBase64[1]

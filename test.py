@@ -42,4 +42,4 @@ print("responded with: ", res.status_code)
 
 # save responnse
 output = res.json()
-print(output['modelOutputs'][0]['image-0'][:50])
+print(output)
