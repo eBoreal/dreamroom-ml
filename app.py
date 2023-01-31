@@ -78,7 +78,13 @@ def inference(model_inputs:dict) -> dict:
 
     # decode image
     image_string = model_inputs.get('imageString')
+
+    print("Received image string", image_string[:50])
+
     input_image = imageStringToPil(image_string)
+
+    print("Decoded it to", type(input_image))
+
 
     if instruction == None:
         return {'message': "No prompt provided"}
