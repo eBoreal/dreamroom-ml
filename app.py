@@ -55,11 +55,13 @@ def generate(
     print(image_cfg_scale)
 
     generator = torch.manual_seed(seed)
-    edited_image = model(
-        instruction, image=input_image,
-        guidance_scale=text_cfg_scale, image_guidance_scale=image_cfg_scale,
-        num_inference_steps=steps, generator=generator
-    ).images[0]
+    edited_image = model(instruction, image=input_image, num_inference_steps=10, 
+    image_guidance_scale=1).images[0]
+    # edited_image = model(
+    #     instruction, image=input_image,
+    #     guidance_scale=text_cfg_scale, image_guidance_scale=image_cfg_scale,
+    #     num_inference_steps=steps, generator=generator
+    # ).images[0]
     return {
         'seed': seed, 
         'text_cfg_scale': text_cfg_scale, 
