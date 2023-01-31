@@ -2,8 +2,14 @@ from PIL import Image
 from io import BytesIO
 import base64
 
-def dataUrlToPil(img_string):
-    base64string = img_string.split(",")[1]
+def imageStringToPil(img_string):
+    isBase64 = img_string.split(",")
+
+    if (isBase64.length == 1):
+        base64string = img_string
+    else:
+        base64string = isBase64[1]
+
     return Image.open(BytesIO(base64.b64decode(base64string,
          validate=True)))
 
