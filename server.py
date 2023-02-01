@@ -1,8 +1,6 @@
 # Do not edit if deploying to Banana Serverless
 # This file is boilerplate for the http server, and follows a strict interface.
 
-# Instead, edit the init() and inference() functions in app.py
-
 from sanic import Sanic, response
 import subprocess
 import app as user_src
@@ -12,7 +10,7 @@ import sys
 
 # We do the model load-to-GPU step on server startup
 # so the model object is available globally for reuse
-# user_src.init()
+user_src.init()
 
 # Create the http server app
 server = Sanic("DreamRoom")

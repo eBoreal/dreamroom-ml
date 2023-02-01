@@ -1,18 +1,18 @@
-# import torch
-# from diffusers import StableDiffusionInstructPix2PixPipeline,EulerAncestralDiscreteScheduler
+import torch
+from diffusers import StableDiffusionInstructPix2PixPipeline,EulerAncestralDiscreteScheduler
 
 from utils import dataUrlToPil, pilToDataUrl
 
 # # Init is ran on server startup
-# # Load  model to GPU as a global variable under pipeline
-# def init():
-#     global model
+# Load  model to GPU as a global variable under pipeline
+def init():
+    global model
     
-#     device = 0 if torch.cuda.is_available() else -1
-#     model_id = "timbrooks/instruct-pix2pix"
-#     model = StableDiffusionInstructPix2PixPipeline.from_pretrained(model_id, torch_dtype=torch.float16, safety_checker=None)
-#     model.to("cuda")
-#     model.scheduler = EulerAncestralDiscreteScheduler.from_config(model.scheduler.config)
+    device = 0 if torch.cuda.is_available() else -1
+    model_id = "timbrooks/instruct-pix2pix"
+    model = StableDiffusionInstructPix2PixPipeline.from_pretrained(model_id, torch_dtype=torch.float16, safety_checker=None)
+    model.to("cuda")
+    model.scheduler = EulerAncestralDiscreteScheduler.from_config(model.scheduler.config)
 
 
 # Inference is ran for every server call
