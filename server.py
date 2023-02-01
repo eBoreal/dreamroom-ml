@@ -12,7 +12,7 @@ import sys
 
 # We do the model load-to-GPU step on server startup
 # so the model object is available globally for reuse
-user_src.init()
+# user_src.init()
 
 # Create the http server app
 server = Sanic("DreamRoom")
@@ -40,6 +40,7 @@ def inference(request):
         output = user_src.inference(model_inputs)
 
         return response.json(output, status=200)
+    
     except Exception as e:
         exc_info = sys.exc_info()
         err=''.join(traceback.format_exception(*exc_info))
@@ -49,4 +50,4 @@ def inference(request):
 
 
 if __name__ == '__main__':
-    server.run(host='0.0.0.0', port=8000, workers=1)
+    server.run(host='0.0.0.0', port=8080, workers=1)
