@@ -49,7 +49,8 @@ def generate(
             image_guidance_scale=image_cfg_scale, 
             guidance_scale=text_cfg_scale, generator=generator).images[0]
 
-    return {seed, text_cfg_scale, image_cfg_scale, pilToDataUrl(edited_image)}
+    return {seed:seed, text_cfg_scale:text_cfg_scale, 
+        image_cfg_scale:image_cfg_scale, "image_Url": pilToDataUrl(edited_image)}
 
 
 # Inference is ran for every server call
@@ -77,7 +78,8 @@ def inference(model_inputs:dict) -> dict:
 
     if just_test_img:
         # just test sending & getting back images
-        results = {seed, guidance_scale, image_guidance_scale, pilToDataUrl(image)}
+        results = {seed: seed, text_cfg_scale:text_cfg_scale, 
+            image_cfg_scale:image_cfg_scale, "imageUrl": pilToDataUrl(image)}
 
     else:
         # Run the model
