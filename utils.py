@@ -4,8 +4,9 @@ import base64
 
 def dataUrlToPil(img_string):
     base64string = img_string.split(",")[1]
-    return Image.open(BytesIO(base64.b64decode(base64string,
-         validate=True)))
+    img = Image.open(BytesIO(base64.b64decode(base64string,
+         validate=True))).convert("RGB")
+    return img
 
 def pilToDataUrl(img):
         im_file = BytesIO()
