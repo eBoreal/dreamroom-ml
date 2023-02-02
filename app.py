@@ -57,15 +57,17 @@ def generate(
 # Reference preloaded global pipeline here. 
 def inference(model_inputs:dict) -> dict:
     # Parse pipeline arguments
+    # Official model inputs
     prompt = model_inputs.get('prompt', None)
-    steps = model_inputs.get('num_inference_steps', 20)
-    image_cfg_scale=model_inputs.get('image_guidance_scale', 2)
-    text_cfg_scale=model_inputs.get('prompt_guidance_scale', 7)
-    just_test_img=model_inputs.get('test_mode', False)
+    steps = model_inputs.get('steps', 30)
+    image_cfg_scale=model_inputs.get('image_cfg_scale', 1.5)
+    text_cfg_scale=model_inputs.get('text_cfg_scale', 7)
     seed=model_inputs.get('seed', None)
     randomize_cfg=model_inputs.get('randomize_cfg', False)
     randomize_seed=model_inputs.get('randomize_seed', False)
-    # num_images_per_prompt=model_inputs.get('num_images_per_prompt', 1)
+        
+    # Custom
+    just_test_img=model_inputs.get('test_mode', False)
 
     # decode image
     base64_string = model_inputs.get('image')
