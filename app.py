@@ -6,7 +6,7 @@ from PIL import Image, ImageOps
 import torch
 from diffusers import StableDiffusionInstructPix2PixPipeline,EulerAncestralDiscreteScheduler
 
-from utils import dataUrlToPil, pilToDataUrl
+from utils import stringToPil, pilToString
 
 # # Init is ran on server startup
 # Load  model to GPU as a global variable under pipeline
@@ -52,13 +52,19 @@ def generate(
             image_guidance_scale=image_cfg_scale, 
             guidance_scale=text_cfg_scale, generator=generator).images[0]
 
-    return {seed:seed, text_cfg_scale:text_cfg_scale, 
-        image_cfg_scale:image_cfg_scale, "image_Url": pilToDataUrl(edited_image)}
+    return {
+        seed:seed, 
+        text_cfg_scale:text_cfg_scale, 
+        image_cfg_scale:image_cfg_scale, 
+        'image': edited_image
+        }
 
 
 # Inference is ran for every server call
 # Reference preloaded global pipeline here. 
-def inference(model_inputs:dict) -> dict:
+def inference(
+    model_inputs:dict
+    ) -> dict:
     # Parse pipeline arguments
     # Official model inputs
     prompt = model_inputs.get('prompt', None)
@@ -71,10 +77,11 @@ def inference(model_inputs:dict) -> dict:
         
     # Custom
     just_test_img=model_inputs.get('test_mode', False)
+    toDataUrl=model_inputs.get('toDataUrl', False)
 
     # decode image
     base64_string = model_inputs.get('image')
-    image = dataUrlToPil(base64_string)
+    image = stringToPil(base64_string)
 
     print("Input image of type: ", type(image))
 
@@ -83,8 +90,12 @@ def inference(model_inputs:dict) -> dict:
 
     if just_test_img:
         # just test sending & getting back images
-        results = {seed: seed, text_cfg_scale:text_cfg_scale, 
-            image_cfg_scale:image_cfg_scale, "imageUrl": pilToDataUrl(image)}
+        results = {
+            seed: seed, 
+            text_cfg_scale:text_cfg_scale, 
+            image_cfg_scale:image_cfg_scale, 
+            'image': pilToString(image, dataUrl=toDataUrl)
+            }
 
     else:
         # Run the model
@@ -96,8 +107,11 @@ def inference(model_inputs:dict) -> dict:
                 seed,
                 randomize_cfg,
                 text_cfg_scale,
-                image_cfg_scale
+                image_cfg_scale,
         )
+
+        edited_image = results.image
+        results.image=pilToString(edited_image, dataUrl=toDataUrl)
 
     # Return the results as a dictionary
     
