@@ -44,13 +44,20 @@ def generate(
 
     generator = torch.manual_seed(seed)
 
-    print("Running model with params: ", {'prompt': prompt, 'steps': steps, 'image_cfg_scale': image_cfg_scale, 'text_cfg_scale': text_cfg_scale})
-    print("Image: ", input_image.size)
+    # debugging
+    print("Running model with params: ", 
+        {'prompt': prompt, 
+        'steps': steps, 
+        'image_cfg_scale': image_cfg_scale, 
+        'text_cfg_scale': text_cfg_scale,
+        'image_size': input_image.size})
 
     edited_image = model(prompt, image=input_image, 
             num_inference_steps=steps, 
             image_guidance_scale=image_cfg_scale, 
             guidance_scale=text_cfg_scale, generator=generator).images[0]
+
+    print("model run was successful")
 
     return {
         seed:seed, 
@@ -83,8 +90,6 @@ def inference(
     base64_string = model_inputs.get('image')
     image = stringToPil(base64_string)
 
-    print("Input image of type: ", type(image))
-
     if prompt == None:
         return {'message': "No prompt provided"}
 
@@ -110,8 +115,8 @@ def inference(
                 image_cfg_scale,
         )
 
-        edited_image = results.image
-        results.image=pilToString(edited_image, dataUrl=toDataUrl)
+        edited_image = results['image']
+        results['image']=pilToString(edited_image, dataUrl=toDataUrl)
 
     # Return the results as a dictionary
     
