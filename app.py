@@ -74,7 +74,8 @@ def generate(
     grid_search = [
         (image_cfg_scale, text_cfg_scale),
         (image_cfg_scale+.2, text_cfg_scale),
-        (image_cfg_scale-.2, text_cfg_scale),]
+        (image_cfg_scale-.2, text_cfg_scale)
+    ]
     
     edited_images = []
     for params in grid_search:
@@ -82,8 +83,8 @@ def generate(
                 num_inference_steps=steps, 
                 image_guidance_scale=params[0], 
                 guidance_scale=params[1], 
-                generator=generator,
-                num_images_per_prompt=num_images_per_prompt).images[0]
+                generator=generator).images[0]
+        # num_images_per_prompt=num_images_per_prompt
         
         edited_images.append({
             seed:seed, 
@@ -101,7 +102,7 @@ def generate(
 # Reference preloaded global pipeline here. 
 def inference(
     model_inputs:dict
-) ->list[dict]:
+)->list:
     
     # Parse pipeline arguments
     # Official model inputs
