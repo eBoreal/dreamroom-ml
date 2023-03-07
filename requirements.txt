@@ -1,11 +1,8 @@
-# app
 sanic
 requests
 Pillow==9.4.0
 traceback2
-python-math
-
-# pix2pix
+python-math 
 torch
 torchvision==0.12.0
 numpy==1.19.2

@@ -14,10 +14,12 @@ def init(
     """
     global model
     
-    device = 0 if torch.cuda.is_available() else -1
     model_id = "timbrooks/instruct-pix2pix"
     model = StableDiffusionInstructPix2PixPipeline.from_pretrained(model_id, torch_dtype=torch.float16, safety_checker=None)
-    model.to("cuda")
+    
+    if torch.cuda.is_available():
+        model.to("cuda")
+        
     model.scheduler = EulerAncestralDiscreteScheduler.from_config(model.scheduler.config)
 
 def generate(
@@ -77,25 +79,26 @@ def generate(
         (image_cfg_scale-.2, text_cfg_scale)
     ]
     
-    edited_images = []
-    for params in grid_search:
-        res = model(prompt, image=input_image, 
-                num_inference_steps=steps, 
-                image_guidance_scale=params[0], 
-                guidance_scale=params[1], 
-                generator=generator).images[0]
-        # num_images_per_prompt=num_images_per_prompt
-        
-        edited_images.append({
-            seed:seed, 
-            text_cfg_scale:params[1], 
-            image_cfg_scale:params[0], 
-            'image': res
-        })
+    res = []
+    for (img_cfg, text_cfg) in grid_search:
 
+        img = model(prompt, image=input_image, 
+                    num_inference_steps=steps, 
+                    image_guidance_scale=img_cfg, 
+                    guidance_scale=text_cfg, 
+                    generator=generator).images[0]
+        
+        res.append({
+            seed:seed, 
+            text_cfg_scale:text_cfg, 
+            image_cfg_scale:img_cfg, 
+            'image': pilToString(img)
+            }
+        )
+    
     print("model run was successfully")
 
-    return edited_images
+    return res
 
 
 # Inference is ran for every server call
@@ -148,9 +151,6 @@ def inference(
                 image_cfg_scale,
                 num_images_per_prompt
         )
-
-        for x in results:
-            x['image']= pilToString(x['image'], dataUrl=toDataUrl)
         
             
     return results

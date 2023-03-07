@@ -18,6 +18,7 @@ server = Sanic("DreamRoom")
 # Healthchecks verify that the environment is correct on Banana Serverless
 @server.route('/healthcheck', methods=["GET"])
 def healthcheck(request):
+    print("received request")
     # dependency free way to check if GPU is visible
     gpu = False
     out = subprocess.run("nvidia-smi", shell=True)
@@ -29,6 +30,7 @@ def healthcheck(request):
 # Inference POST handler at '/' is called for every http call from Banana
 @server.route('/', methods=["POST"]) 
 def inference(request):
+    print("received request")
     try:
         try:
             model_inputs = response.json.loads(request.json)

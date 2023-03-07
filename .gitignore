@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+code/
+.command.sh
+poetry.lock
+pyproject.toml
+torch-conda-nightly.yml
+
 # Distribution / packaging
 .Python
 build/
