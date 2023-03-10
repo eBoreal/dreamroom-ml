@@ -7,7 +7,52 @@ Ready to deploy inference endpoint for pix2pix.
 
 This repo uses the HuggingFace diffusers' implementation of Tim Brooks et al. Instruct Pix2pix model - https://www.timothybrooks.com/instruct-pix2pix
 
-The code is adapted from Banana serverless template.
+
+# How to interact with the service
+
+## Model Inputs
+
+The model accepts the following inputs:
+
+* `prompt` (str, required)
+* `image` (base64 str, required) - A base64 string of the image (data:image/type;base64,.... also accepeted) should be 512x512 or another standard Stable Diffusion 1.5 resolution for best results
+* `seed` (int, optional, defaults to 42)
+* `text_cfg_scale` (float, optional, default 7)
+* `image_cfg_scale` (float, optional, default 1.5)
+* `steps` (int, optional, default to 20)
+* `randomize_cfg` (boolean, optional, default False)
+* `randomize_seed` (boolean, optional, default True)
+* `image_cfg_scale` (float, optional, default 1.5)
+
+Additional parameters:
+* `test_mode` (boolean, optional, default False)
+* `toDataUrl` (boolean, optional, default False) - if you want output "data:image/type;base64,...."
+
+
+Not implemented
+* `negative_prompt`
+* `num_images_per_prompt`
+
+
+
+## Model Output
+
+The model outputs:
+
+A list of image objects where each has the following properties:
+* `image` (base64 str) - base64 or base64 with data_url prefix if specified
+* `seed` (int)
+* `text_cfg_scale` (float)
+* `image_cfg_scale` (float)
+* `steps` (int)
+
+
+
+# Example
+
+- Checkout the test.py for an example
+
+
 
 # Examples of generated images
 

@@ -5,7 +5,7 @@ import base64
 def stringToPil(
     img_string: str
     ):
-    is_data_url = True if len(img_string.split(",")) > 0 else False
+    is_data_url = True if len(img_string.split(",")) > 1 else False
     
     if is_data_url:
         base64string = img_string.split(",")[1]

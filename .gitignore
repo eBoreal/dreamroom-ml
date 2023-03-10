@@ -137,3 +137,5 @@ dmypy.json
 # DreamRoom
 .commands
 src/
+
+data/output/test*
