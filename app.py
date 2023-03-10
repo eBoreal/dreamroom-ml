@@ -161,7 +161,8 @@ def inference(
             (image_cfg_scale, text_cfg_scale),
             (round(image_cfg_scale-.15, 3), text_cfg_scale),
             (round(image_cfg_scale-.3, 3), text_cfg_scale),
-            (round(image_cfg_scale+.15, 3), text_cfg_scale)
+            (round(image_cfg_scale+.15, 3), text_cfg_scale),
+            (image_cfg_scale, text_cfg_scale+2)
 
         ]
         

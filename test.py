@@ -9,15 +9,16 @@ from utils import stringToPil
 
 
 # params
-test_img_path = "data/input/venus-of-milo-512.jpg"
-prompt = "turn her into a cyborg"
-num_inference_steps=20
+test_name = "van-gogh-girl-selfie" #"van-gogh-macron" #"van-gogh-cool-guy-selfie"
+
+test_img_path = f"data/input/girl-selfie.jpg"
+prompt = "make it a van gogh painting"
+num_inference_steps=30
 image_guidance_scale=1.4
 prompt_guidance_scale=7
 num_images_per_prompt= 1
 test_mode=False
 
-test_name = f"test-venus-of-milo"
 
 
 def make_test_example():
@@ -30,7 +31,7 @@ def make_test_example():
 
     model_inputs = {'prompt': prompt,
                     'image': base64_string,
-                    'num_inference_steps': num_inference_steps,
+                    'steps': num_inference_steps,
                     'image_cfg_scale': image_guidance_scale,
                     'text_cfg_scale': prompt_guidance_scale,
                     'num_images_per_prompt': num_images_per_prompt,
