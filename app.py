@@ -80,21 +80,25 @@ def generate(
     ]
     
     res = []
-    for (img_cfg, text_cfg) in grid_search:
-
-        img = model(prompt, image=input_image, 
-                    num_inference_steps=steps, 
-                    image_guidance_scale=img_cfg, 
-                    guidance_scale=text_cfg, 
-                    generator=generator).images[0]
-        
-        res.append({
-            seed:seed, 
-            text_cfg_scale:text_cfg, 
-            image_cfg_scale:img_cfg, 
-            'image': pilToString(img)
-            }
-        )
+    i = 0
+    #for (img_cfg, text_cfg) in grid_search:
+    i+=1
+    img_cfg = image_cfg_scale
+    text_cfg = text_cfg_scale
+    print("Generating image: ", i)
+    img = model(prompt, image=input_image, 
+                num_inference_steps=steps, 
+                image_guidance_scale=img_cfg, 
+                guidance_scale=text_cfg, 
+                generator=generator).images[0]
+    
+    res.append({
+        seed:seed, 
+        text_cfg_scale:text_cfg, 
+        image_cfg_scale:img_cfg, 
+        'image': pilToString(img)
+        }
+    )
     
     print("model run was successfully")
 
