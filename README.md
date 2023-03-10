@@ -10,6 +10,22 @@ This repo uses the HuggingFace diffusers' implementation of Tim Brooks et al. In
 
 # How to interact with the service
 
+## Run the server
+2 options:
+
+Without docker
+```
+pip install -r requirements.txt
+python3 server.py
+```
+
+Or with docker
+
+```
+docker build -t pix2pix .
+docker run -p 8000:8000 pix2pix
+```
+
 ## Model Inputs
 
 The model accepts the following inputs:
